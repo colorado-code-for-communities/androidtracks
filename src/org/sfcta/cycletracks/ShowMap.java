@@ -21,12 +21,14 @@
 
 package org.sfcta.cycletracks;
 
+import java.util.List;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.Point;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,19 +36,19 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.TextView;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
-import java.util.List;
-
 public class ShowMap extends MapActivity {
 	private MapView mapView;
 	List<Overlay> mapOverlays;
 	Drawable drawable;
 	ItemizedOverlayTrack gpspoints;
+	float[] lineCoords;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -155,10 +157,9 @@ public class ShowMap extends MapActivity {
 	}
 
 
-    private static class LineOverlay extends Overlay
+    class LineOverlay extends com.google.android.maps.Overlay
     {
-        private static final float REQ_ACCURACY_FOR_LINES = 25.0f;  // Was 8.0, increased because test data was coming in at 20.0
-        private ItemizedOverlayTrack track;
+        ItemizedOverlayTrack track;
 
         public LineOverlay(ItemizedOverlayTrack track) {
             super();
@@ -181,8 +182,7 @@ public class ShowMap extends MapActivity {
                 CyclePoint z = (CyclePoint) track.getItem(i).getPoint();
 
                 // Skip lousy points
-                if (z.accuracy > REQ_ACCURACY_FOR_LINES) {
-                    Log.v("debug", "skipping points with accuracy of "+z.accuracy);
+                if (z.accuracy > 8) {
                     startx = -1;
                     continue;
                 }
@@ -215,7 +215,7 @@ public class ShowMap extends MapActivity {
         }
     }
 
-	class PushPinOverlay extends Overlay
+	class PushPinOverlay extends com.google.android.maps.Overlay
     {
         GeoPoint p;
         int d;
@@ -237,7 +237,7 @@ public class ShowMap extends MapActivity {
             //---add the marker---
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), d);
             int height = bmp.getScaledHeight(canvas);
-            int width = Double.valueOf(0.133333 * bmp.getScaledWidth(canvas)).intValue();  // 4/30 pixels: how far right we want the pushpin
+            int width = (int)(0.133333 * bmp.getScaledWidth(canvas));  // 4/30 pixels: how far right we want the pushpin
 
             canvas.drawBitmap(bmp, screenPoint.x-width, screenPoint.y-height, null);
             return true;
