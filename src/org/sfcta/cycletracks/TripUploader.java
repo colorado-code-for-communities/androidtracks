@@ -48,6 +48,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
+    private static final int COORDINATES_PER_POST = 5;
     Context mCtx;
     DbAdapter mDb;
 
@@ -66,11 +67,8 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
         Cursor tripCursor = mDb.fetchTrip(tripId);
 
         float ease = tripCursor.getFloat(tripCursor.getColumnIndex(DbAdapter.K_TRIP_EASE));
-        Log.v("debug", ""+ease);
         float safety = tripCursor.getFloat(tripCursor.getColumnIndex(DbAdapter.K_TRIP_SAFETY));
-        Log.v("debug", ""+safety);
         float convenience = tripCursor.getFloat(tripCursor.getColumnIndex(DbAdapter.K_TRIP_CONVENIENCE));
-        Log.v("debug", ""+convenience);
         tripCursor.close();
 
         Cursor tripCoordsCursor = mDb.fetchAllCoordsForTrip(tripId);
@@ -238,6 +236,8 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
 
         String userQuery = "INSERT INTO users(\"age\",\"email\",\"gender\",\"zip_home\",\"zip_work\",\"zip_school\",\"cycling_frequency\",\"device_id\") VALUES(" + userValues + ')';
         String tripQuery = "INSERT INTO trips(\"device_id\",\"trip_id\",\"notes\",\"purpose\",\"start\",\"end\",\"version\") VALUES (" + tripValues + ')';
+
+        // Break up the coordinates into groups to avoid running out of string space
         List<String> coordQueries = new LinkedList<String>();
         int i = 0;
         StringBuilder coordsQuery = new StringBuilder();
@@ -248,7 +248,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
             Log.v("CoordData", coordinate);
             coordsQuery.append(coordinate);
             coordsQuery.append("), (");
-            if(++i >= 5)
+            if(++i >= COORDINATES_PER_POST)
             {
                 coordsQuery.delete(coordsQuery.lastIndexOf(","), coordsQuery.length());
                 coordQueries.add(coordsQuery.toString());
