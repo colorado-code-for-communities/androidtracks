@@ -3,6 +3,15 @@ Modified for OpenBike
 OpenBike adds qualitative ratings for safety, ease of use, and convenience. 
 The modified codebase has been updated with OpenBike related services.
 
+Dev Instructions
+-----------
+1. Need to add android support v4 library into project, figure out where your adt is and look inside the extras / sdk blah blah for it, then go project,right click properties, java build path, remove the broken jar reference and add the one from your computer
+
+2. Need to add google play services, this is similar but multiple steps, File > import > android project existing, find the google play services lib project in the adt directory structure, import the project, now go to project properties, android, look at the bottom at libraries, remove anything broken and add google play services
+
+3. project > clean ... 
+
+
 CycleTracks
 -----------
 Copyright 2009, 2010 San Francisco County Transportation Authority
