@@ -14,7 +14,9 @@ Prerequisites:
 
 2. Need to add google play services, this is similar but multiple steps, File > import > android project existing, find the google play services lib project in the adt directory structure, import the project, now go to project properties, android, look at the bottom at libraries, remove anything broken and add google play services
 
-3. project > clean ... 
+3. Right click on your projects ---> properties ---> android --> select target name Google ApIs. If it isn't there then check that you have the Google API prereq.
+
+4. project > clean ... 
 
 
 CycleTracks
