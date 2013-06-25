@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="co.openbike.cycletracks"
       android:versionCode="8" android:versionName="1.03">
-<application android:label="OpenBike" android:debuggable="false" android:icon="@drawable/icon72">
+<application android:label="OpenBike" android:debuggable="false" android:icon="@drawable/icon">
         <activity android:label="OpenBike" android:name="co.openbike.cycletracks.MainInput" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

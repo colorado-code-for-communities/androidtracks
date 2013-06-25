@@ -14,7 +14,7 @@
 		<RelativeLayout android:id="@+id/RelativeLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cycling Frequency:" android:layout_marginLeft="10sp" android:layout_alignParentLeft="true" android:layout_marginTop="20sp" android:textStyle="bold"></TextView><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true" android:layout_marginRight="10sp" android:id="@+id/TextFreq" android:textStyle="bold" android:layout_marginTop="20sp" android:text="Less than once a month"></TextView></RelativeLayout>
 		<SeekBar android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
-			android:id="@+id/SeekCycleFreq" android:minHeight="30sp" android:thumb="@drawable/icon48" android:max="399" android:layout_marginTop="2sp" android:nextFocusDown="@+id/TextZipHome" android:thumbOffset="0sp" android:layout_marginLeft="12sp" android:layout_marginRight="12sp"></SeekBar>
+			android:id="@+id/SeekCycleFreq" android:minHeight="30sp" android:thumb="@drawable/icon" android:max="399" android:layout_marginTop="2sp" android:nextFocusDown="@+id/TextZipHome" android:thumbOffset="0sp" android:layout_marginLeft="12sp" android:layout_marginRight="12sp"></SeekBar>
 		
 		
 		<LinearLayout android:id="@+id/LinearLayout01"
