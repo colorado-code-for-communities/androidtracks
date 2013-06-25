@@ -4,3 +4,7 @@ tests/bin
 tests/gen
 Thumbs.db
 
+
+lib/google-play-services_lib/.project
+
+lib/google-play-services_lib/.settings/org.eclipse.jdt.core.prefs
