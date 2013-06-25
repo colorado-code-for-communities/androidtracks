@@ -4,17 +4,9 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-<<<<<<< HEAD
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-=======
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-<<<<<<< HEAD
-	<classpathentry exported="true" kind="lib" path="/Users/mikeylockitz/Downloads/adt-bundle-mac-x86_64-20130522/sdk/extras/android/support/v4/android-support-v4.jar"/>
-=======
 	<classpathentry exported="true" kind="lib" path="C:/Users/mscheel/Development/adt-bundle-windows-x86_64-20130219/sdk/extras/android/support/v4/android-support-v4.jar"/>
->>>>>>> maps_v2
->>>>>>> e2fd71e3f24c5b8ad7ec3c7173c49625aaeb818a
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
