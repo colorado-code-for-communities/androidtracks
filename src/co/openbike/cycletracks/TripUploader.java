@@ -39,7 +39,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,7 +77,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
         this.mDb = new DbAdapter(this.mCtx);
     }
 
-    private JSONObject getCoordsJSON(long tripId) throws JSONException {
+    private JSONArray getCoordsJSON(long tripId) throws JSONException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         mDb.openReadOnly();
@@ -101,7 +101,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
         		tripCoordsCursor.getColumnIndex(DbAdapter.K_POINT_ACC));
 
         // Build JSON objects for each coordinate:
-        JSONObject tripCoords = new JSONObject();
+        JSONArray tripCoords = new JSONArray();
         while (!tripCoordsCursor.isAfterLast()) {
             JSONObject coord = new JSONObject();
 
@@ -120,7 +120,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
             coord.put(TRIP_COORDS_VACCURACY,
             		tripCoordsCursor.getDouble(fieldMap.get(TRIP_COORDS_VACCURACY)));
 
-            tripCoords.put(coord.getString("rec"), coord);
+            tripCoords.put(coord);
             tripCoordsCursor.moveToNext();
         }
         tripCoordsCursor.close();
@@ -187,7 +187,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
     }
 
     private List<NameValuePair> getPostData(long tripId) throws JSONException {
-        JSONObject coords = getCoordsJSON(tripId);
+        JSONArray coords = getCoordsJSON(tripId);
         JSONObject user = getUserJSON();
         String deviceId = getDeviceId();
         Vector<String> tripData = getTripData(tripId);
@@ -200,20 +200,21 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
         String convenience = tripData.get(6);
 
 
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("coords", coords.toString()));
-        nameValuePairs.add(new BasicNameValuePair("user", user.toString()));
-        nameValuePairs.add(new BasicNameValuePair("device", deviceId));
-        nameValuePairs.add(new BasicNameValuePair("notes", notes));
-        nameValuePairs.add(new BasicNameValuePair("purpose", purpose));
-        nameValuePairs.add(new BasicNameValuePair("start", startTime));
-        nameValuePairs.add(new BasicNameValuePair("end", endTime));
-        nameValuePairs.add(new BasicNameValuePair("ease", ease));
-        nameValuePairs.add(new BasicNameValuePair("safety", safety));
-        nameValuePairs.add(new BasicNameValuePair("convenience", convenience));
-        nameValuePairs.add(new BasicNameValuePair("version", "2"));
+        JSONObject postData = new JSONObject();
+        postData.put("coords", coords.toString());
+        postData.put("user", user.toString());
+        postData.put("device", deviceId);
+        postData.put("notes", notes);
+        postData.put("purpose", purpose);
+        postData.put("start", startTime);
+        postData.put("end", endTime);
+        postData.put("ease", ease);
+        postData.put("safety", safety);
+        postData.put("convenience", convenience);
+        postData.put("version", "2");
 
-        return nameValuePairs;
+        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+        return nameValuePair;
     }
 
     private static String convertStreamToString(InputStream is) {
