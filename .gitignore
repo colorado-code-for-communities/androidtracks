@@ -4,3 +4,7 @@ tests/bin
 tests/gen
 Thumbs.db
 .dotcloud
+**.classpath
+**project.properties
+**.project
+**org.eclipse.jdt.core.prefs

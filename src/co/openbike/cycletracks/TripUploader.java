@@ -78,7 +78,7 @@ public class TripUploader extends AsyncTask <Long, Integer, Boolean> {
     }
 
     private JSONArray getCoordsJSON(long tripId) throws JSONException {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
         mDb.openReadOnly();
         Cursor tripCoordsCursor = mDb.fetchAllCoordsForTrip(tripId);
